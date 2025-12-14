@@ -29,8 +29,8 @@ export interface Asset {
     newSection?: string;
 
     // BOS
-    boardOfSurveyCategory?: { name: string; code: string };
-    boardOfSurveyYear?: { year: number };
+    boardOfSurveyCategory?: { id: number; name: string; code: string };
+    boardOfSurveyYear?: { id: number; year: number };
 
     createdAt: string;
 }

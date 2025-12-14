@@ -1,6 +1,6 @@
-import { Dialog, DialogContent, DialogTrigger } from './ui/Dialog';
+import { Dialog, DialogContent } from './ui/Dialog';
 import { Button, Badge } from './ui';
-import { X, Printer } from 'lucide-react';
+import { Printer } from 'lucide-react';
 
 interface AssetDetailsModalProps {
     asset: any;

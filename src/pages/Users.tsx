@@ -5,7 +5,7 @@ import { Button, Badge, Card } from '../components/ui';
 import { Dialog, DialogContent, DialogTrigger } from '../components/ui/Dialog';
 import AddUserForm from '../components/AddUserForm';
 import EditUserRole from '../components/EditUserRole';
-import { Plus, Users as UsersIcon, Mail, Shield, Edit2, Trash2 } from 'lucide-react';
+import { Plus, Mail, Shield, Edit2, Trash2 } from 'lucide-react';
 
 const Users = () => {
     const { data: users, isLoading } = useQuery({ queryKey: ['users'], queryFn: getUsers });

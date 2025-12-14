@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getBranchById } from '../api/branches';
 import { getAssets } from '../api/assets';
@@ -13,7 +13,6 @@ import DeleteAssetDialog from '../components/DeleteAssetDialog';
 const BranchAssets = () => {
     const { branchId } = useParams();
     const id = Number(branchId);
-    const navigate = useNavigate();
 
     // Asset Dialog States
     const [editAsset, setEditAsset] = useState<any>(null);

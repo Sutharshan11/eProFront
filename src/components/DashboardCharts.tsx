@@ -70,7 +70,7 @@ const DashboardCharts = ({ data }: DashboardChartsProps) => {
                                 paddingAngle={5}
                                 dataKey="value"
                             >
-                                {data.assetsByStatus.map((entry, index) => (
+                                {data.assetsByStatus.map((_, index) => (
                                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                 ))}
                             </Pie>

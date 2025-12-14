@@ -1,7 +1,7 @@
 ﻿import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Loader2, Mail, Lock, Eye, EyeOff, Sparkles } from 'lucide-react';
 
 const Login = () => {

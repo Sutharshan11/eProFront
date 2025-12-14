@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getAssetHistory } from '../api/assets';
 import { Dialog, DialogContent } from './ui/Dialog';
-import { Loader2, History, User, Calendar, FileText, CheckCircle2 } from 'lucide-react';
-import { Badge } from './ui';
+import { Loader2, History, User, Calendar } from 'lucide-react';
 
 interface AssetHistoryModalProps {
     assetId: number | null;
@@ -25,15 +24,6 @@ const AssetHistoryModal = ({ assetId, open, onOpenChange }: AssetHistoryModalPro
             hour: '2-digit',
             minute: '2-digit',
         });
-    };
-
-    const getActionIcon = (action: string) => {
-        switch (action) {
-            case 'CREATED': return <CheckCircle2 className="w-4 h-4 text-green-500" />;
-            case 'DISPOSED': return <History className="w-4 h-4 text-red-500" />;
-            case 'RESTORED': return <History className="w-4 h-4 text-blue-500" />;
-            default: return <FileText className="w-4 h-4 text-gray-500" />;
-        }
     };
 
     const getActionColor = (action: string) => {
@@ -62,12 +52,12 @@ const AssetHistoryModal = ({ assetId, open, onOpenChange }: AssetHistoryModalPro
                     <div className="relative overflow-hidden">
                         <div className="absolute left-6 top-0 bottom-0 w-px bg-gray-200" />
                         <div className="space-y-6 p-1">
-                            {history.map((record: any, index: number) => (
+                            {history.map((record: any) => (
                                 <div key={record.id} className="relative pl-12">
                                     {/* Timeline Node */}
                                     <div className={`absolute left-[21px] top-1 w-2.5 h-2.5 rounded-full border-2 border-white ring-1 ring-gray-200 shadow-sm ${record.action === 'DISPOSED' ? 'bg-red-500' :
-                                            record.action === 'CREATED' ? 'bg-green-500' :
-                                                record.action === 'RESTORED' ? 'bg-blue-500' : 'bg-gray-400'
+                                        record.action === 'CREATED' ? 'bg-green-500' :
+                                            record.action === 'RESTORED' ? 'bg-blue-500' : 'bg-gray-400'
                                         }`} />
 
                                     <div className="bg-white rounded-lg border border-gray-100 shadow-sm p-4 hover:shadow-md transition-shadow">
