@@ -1,14 +1,24 @@
-import { useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getBranchById } from '../api/branches';
 import { getAssets } from '../api/assets';
 import { Card, Badge, Button } from '../components/ui';
-import { Printer, Download, ArrowLeft, Building2, MapPin } from 'lucide-react';
+import { Printer, Download, ArrowLeft, Building2, MapPin, Pencil, Trash2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Dialog, DialogContent } from '../components/ui/Dialog';
+import EditAssetModal from '../components/EditAssetModal';
+import DeleteAssetDialog from '../components/DeleteAssetDialog';
 
 const BranchAssets = () => {
     const { branchId } = useParams();
     const id = Number(branchId);
+    const navigate = useNavigate();
+
+    // Asset Dialog States
+    const [editAsset, setEditAsset] = useState<any>(null);
+    const [isEditAssetOpen, setIsEditAssetOpen] = useState(false);
+    const [deleteAsset, setDeleteAsset] = useState<any>(null);
 
     const { data: branch, isLoading: isBranchLoading } = useQuery({
         queryKey: ['branch', id],
@@ -68,7 +78,7 @@ const BranchAssets = () => {
                         </Button>
                     </Link>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                     <Button variant="secondary" onClick={handleExport}>
                         <Download className="w-4 h-4 mr-2" />
                         Export CSV
@@ -107,6 +117,7 @@ const BranchAssets = () => {
                                 <th className="px-6 py-3 font-semibold print:px-2">Category</th>
                                 <th className="px-6 py-3 font-semibold print:px-2">Status</th>
                                 <th className="px-6 py-3 font-semibold print:px-2 text-right">Value (LKR)</th>
+                                <th className="px-6 py-3 font-semibold print:px-2 text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100">
@@ -123,6 +134,29 @@ const BranchAssets = () => {
                                     <td className="px-6 py-3 text-right font-mono text-gray-600 print:px-2">
                                         {new Intl.NumberFormat('en-LK', { style: 'currency', currency: 'LKR' }).format(asset.value)}
                                     </td>
+                                    <td className="px-6 py-3 text-right print:px-2 print:hidden">
+                                        <div className="flex justify-end gap-1">
+                                            <Button
+                                                variant="ghost"
+                                                className="h-8 w-8 p-0 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50"
+                                                title="Edit Asset"
+                                                onClick={() => {
+                                                    setEditAsset(asset);
+                                                    setIsEditAssetOpen(true);
+                                                }}
+                                            >
+                                                <Pencil className="w-4 h-4" />
+                                            </Button>
+                                            <Button
+                                                variant="ghost"
+                                                className="h-8 w-8 p-0 text-gray-400 hover:text-red-600 hover:bg-red-50"
+                                                title="Delete Asset"
+                                                onClick={() => setDeleteAsset(asset)}
+                                            >
+                                                <Trash2 className="w-4 h-4" />
+                                            </Button>
+                                        </div>
+                                    </td>
                                 </tr>
                             ))}
                             {(!assets || assets.length === 0) && (
@@ -136,6 +170,30 @@ const BranchAssets = () => {
                     </table>
                 </div>
             </Card>
+
+
+
+            {/* Asset Dialogs */}
+            {editAsset && (
+                <Dialog open={isEditAssetOpen} onOpenChange={setIsEditAssetOpen}>
+                    <DialogContent title="Edit Asset" className="sm:max-w-[700px]">
+                        <EditAssetModal
+                            asset={editAsset}
+                            onSuccess={() => setIsEditAssetOpen(false)}
+                        />
+                    </DialogContent>
+                </Dialog>
+            )}
+
+            {deleteAsset && (
+                <DeleteAssetDialog
+                    assetId={deleteAsset.id}
+                    assetName={deleteAsset.name}
+                    open={!!deleteAsset}
+                    onOpenChange={(open) => !open && setDeleteAsset(null)}
+                    onSuccess={() => setDeleteAsset(null)}
+                />
+            )}
 
             <style>{`
                 @media print {

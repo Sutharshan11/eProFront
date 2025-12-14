@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LayoutDashboard, Box, ArrowRightLeft, Building2, Users, LogOut, Menu, X, KeyRound } from 'lucide-react';
+import { LayoutDashboard, Box, ArrowRightLeft, Building2, Users, LogOut, Menu, X, KeyRound, Code2 } from 'lucide-react';
 import { clsx } from 'clsx';
 import { Dialog, DialogContent, DialogTrigger } from './ui/Dialog';
 import ChangePassword from './ChangePassword';
@@ -36,6 +36,7 @@ const Layout = () => {
         { label: 'Assets', path: '/assets', icon: Box },
         { label: 'Transfers', path: '/transfers', icon: ArrowRightLeft },
         { label: 'Branches', path: '/branches', icon: Building2 },
+        { label: 'Dev Team', path: '/dev-team', icon: Code2 },
     ];
 
     if (user?.role === 'SUPER_ADMIN') {
@@ -46,7 +47,10 @@ const Layout = () => {
         <div className="flex h-screen bg-gray-50 text-gray-900 font-sans overflow-hidden">
             {/* Mobile Header */}
             <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-slate-900 z-40 flex items-center justify-between px-4 shadow-md">
-                <span className="font-bold text-xl tracking-tight text-blue-400">AssetManager</span>
+                <div className="flex items-center gap-2">
+                    <img src="/gjrti_logo.jpg" alt="GJRTI Logo" className="h-8 w-auto rounded-md bg-white object-contain" />
+                    <span className="font-bold text-lg tracking-tight text-white">GJRTI Asset</span>
+                </div>
                 <button
                     onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                     className="p-2 text-gray-300 hover:text-white hover:bg-slate-800 rounded-lg"
@@ -72,7 +76,12 @@ const Layout = () => {
             >
                 {/* Desktop Header Logo */}
                 <div className="h-16 hidden lg:flex items-center justify-between px-6 border-b border-slate-800">
-                    {isSidebarOpen && <span className="font-bold text-xl tracking-tight text-blue-400">AssetManager</span>}
+                    {isSidebarOpen && (
+                        <div className="flex items-center gap-2">
+                            <img src="/gjrti_logo.jpg" alt="GJRTI Logo" className="h-10 w-auto rounded-md object-contain bg-white" />
+                            <span className="font-bold text-lg tracking-tight text-white hidden xl:block">GJRTI Asset</span>
+                        </div>
+                    )}
                     <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-1 hover:bg-slate-800 rounded hidden lg:block">
                         <Menu className="w-6 h-6 text-gray-400 hover:text-white" />
                     </button>

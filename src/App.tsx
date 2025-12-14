@@ -23,6 +23,7 @@ import Transfers from './pages/Transfers';
 import Branches from './pages/Branches';
 import BranchAssets from './pages/BranchAssets';
 import Users from './pages/Users';
+import DevTeam from './pages/DevTeam';
 
 // ... (previous imports)
 
@@ -42,6 +43,7 @@ function App() {
         <Route path="/branches" element={<Branches />} />
         <Route path="/branches/:branchId" element={<BranchAssets />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/dev-team" element={<DevTeam />} />
       </Route>
 
       <Route path="/" element={<Navigate to="/dashboard" replace />} />

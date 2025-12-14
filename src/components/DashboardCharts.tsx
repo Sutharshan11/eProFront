@@ -34,14 +34,22 @@ const DashboardCharts = ({ data }: DashboardChartsProps) => {
             {/* Assets by Category */}
             <Card className="p-6">
                 <h3 className="text-lg font-bold text-gray-900 mb-4">Assets by Category</h3>
-                <div className="h-[300px] w-full">
+                <div className="h-[400px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={data.assetsByCategory}>
-                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                            <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 12 }} dy={10} />
-                            <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 12 }} />
+                        <BarChart data={data.assetsByCategory} layout="vertical" margin={{ left: 10, right: 30 }}>
+                            <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#e2e8f0" />
+                            <XAxis type="number" hide />
+                            <YAxis
+                                dataKey="name"
+                                type="category"
+                                width={160}
+                                tick={{ fill: '#64748b', fontSize: 11, fontWeight: 500 }}
+                                axisLine={false}
+                                tickLine={false}
+                                interval={0} // Force show all labels
+                            />
                             <Tooltip content={<CustomTooltip />} cursor={{ fill: '#f1f5f9' }} />
-                            <Bar dataKey="value" fill="#4f46e5" radius={[4, 4, 0, 0]} barSize={40} />
+                            <Bar dataKey="value" fill="#4f46e5" radius={[0, 4, 4, 0]} barSize={20} />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
